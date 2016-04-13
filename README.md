@@ -2,9 +2,9 @@
 
 - Java EE 6.0
 - CDI
-- JPA 2.0
+- JPA 2.1
 - Hibernate 
-- PostgreSQL
+- PostgreSQL 9.4
 - Gradle
 - Google AutoValue
 - FasterXML Jackson
