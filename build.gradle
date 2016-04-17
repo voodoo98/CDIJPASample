@@ -1,9 +1,8 @@
 plugins {
+    id 'eclipse'
     id 'war'
     id 'ear'
-    id 'eclipse'
-    id 'jacoco'
-    id 'net.ltgt.apt' version '0.5'
+    id 'net.ltgt.apt' version '0.6'
 }
 
 repositories {
@@ -11,7 +10,8 @@ repositories {
     jcenter()
 }
 
-def warName = 'sample_cdi.war'
+def warName = 'cdi-jpa-sample-webservice.war'
+def JBOSS_HOME = System.getenv("JBOSS_HOME")
 
 war {
   archiveName = warName
@@ -27,13 +27,19 @@ ear {
     }
 }
 
+task deployToJboss(type: Copy) {
+    from 'build/libs/CDIJPASample.ear'
+    into JBOSS_HOME + '/standalone/deployments'
+}
+
 dependencies {
     compile 'org.slf4j:slf4j-api:1.7.12'
     compile group: 'javax', name: 'javaee-api', version: '6.0'
     compile 'com.google.guava:guava:19.0'
+    compile 'com.google.code.findbugs:jsr305:3.0.1'
+    
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.6.3'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.6.3'
-    compile 'com.google.code.findbugs:jsr305:3.0.1'
     compile 'org.eclipse.persistence:javax.persistence:2.0.0'
     compile 'org.hibernate:hibernate-entitymanager:4.2.8.Final'
 
@@ -43,8 +49,8 @@ dependencies {
     providedCompile 'javax.enterprise:cdi-api:1.0-SP4'
     providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
 
-    apt 'com.google.auto.value:auto-value:1.1'
-    compileOnly 'com.google.auto.value:auto-value:1.1'
+    apt 'com.google.auto.value:auto-value:1.2'
+    compileOnly 'com.google.auto.value:auto-value:1.2'
 
-    testCompile 'junit:junit:4.12'
+    testCompile 'junit:junit:4.13'
 }

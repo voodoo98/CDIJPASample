@@ -2,12 +2,14 @@ package com.cdisample.dataservice.persistance;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import com.cdisample.dataservice.persistance.exception.PersistenceServiceException;
 
+@Stateless
 public class VersionManager {
 
 	@PersistenceContext(unitName = "VersionService")
